@@ -13,7 +13,9 @@
   <% if user_signed_in? %>
     <%= link_to t(".review_new"), new_book_review_path(@book), class: "btn btn-info" %>
   <% end %>
-<%= link_to t(".return"), book_path(@book), class: "btn btn-secondary" %>
+  <%= link_to t(".return"), book_path(@book), class: "btn btn-secondary" %>
+  <hr>
+  <%= render partial: "reviews/review", collection: @book.reviews %>
 </div>
 
 <div class="modal fade" id="delete-book">
