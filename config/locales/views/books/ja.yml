@@ -15,6 +15,7 @@ ja:
       question_book: "%{book}を外しますか？"
       delete_action: 外す
       cancel: キャンセル
+      review_new: レビューする
     index:
       # price: 価格
       # price_yen: "¥%{price}"

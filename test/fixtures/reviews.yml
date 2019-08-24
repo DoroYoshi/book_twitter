@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  reading_date: 2019-08-24
+  evaluation: 1.5
+  description: MyText
+  book: one
+  user: one
+
+two:
+  title: MyString
+  reading_date: 2019-08-24
+  evaluation: 1.5
+  description: MyText
+  book: two
+  user: two
