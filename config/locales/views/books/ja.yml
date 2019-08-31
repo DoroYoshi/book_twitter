@@ -16,6 +16,9 @@ ja:
       delete_action: 外す
       cancel: キャンセル
       review_new: レビューする
+      evaluation: 評価
+      created_at: 読了日
+      title: 要約
     index:
       # price: 価格
       # price_yen: "¥%{price}"

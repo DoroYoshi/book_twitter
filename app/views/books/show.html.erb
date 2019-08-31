@@ -5,17 +5,29 @@
     </div>
     <div class="col-md-8">
       <h2><%= @book.title %></h2>
-      <li><b><%= t ".category" %>: </b><%= @book.category&.name %></li>
+      <!-- 
+      <% unless @reviews %>
+        <ul>
+          <li><b><%= t ".category" %>: </b></li>
+          <li><b><%= t ".evaluation" %>: </b></li>
+          <li><b><%= t ".created_at" %>: </b></li>
+          <li><b><%= t ".title" %>: </b></li>
+        </ul>
+      <% else %>
+        <%= render partial: "reviews/review", collection: @book.reviews %>
+      <% end %>-->
+      <%= render partial: "reviews/review", collection: @book.reviews %>
     </div>
   </div>
   <%= link_to t(".edit"), edit_book_path(@book), class: "btn btn-primary" %>
-  <%= button_tag t(".delete"), class: "btn btn-warning", data: { toggle: "modal", target: "#delere-book" } %>
+  <%= button_tag t(".delete"), class: "btn btn-warning", data: { toggle: "modal", target: "#delete-book" } %>
   <% if user_signed_in? %>
     <%= link_to t(".review_new"), new_book_review_path(@book), class: "btn btn-info" %>
   <% end %>
-  <%= link_to t(".return"), book_path(@book), class: "btn btn-secondary" %>
+  
+  <%= link_to t(".return"), books_path(@book), class: "btn btn-secondary" %>
   <hr>
-  <%= render partial: "reviews/review", collection: @book.reviews %>
+  
 </div>
 
 <div class="modal fade" id="delete-book">
@@ -31,7 +43,7 @@
         <p><%= t(".question_book", book: @book.title) %></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(".chancel") %></button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(".cancel") %></button>
         <%= link_to t(".delete_action"), book_path(@book), method: :delete, class: "btn btn-danger" %>
       </div>
     </div>

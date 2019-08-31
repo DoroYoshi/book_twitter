@@ -15,3 +15,8 @@ ja:
       question_review: "%{review}を削除しますか？"
       delete_action: 削除する
       chancel: キャンセル
+    review:
+      category: カテゴリー
+      evaluation: 評価
+      created_at: 読了日
+      title: 要約

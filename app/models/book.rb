@@ -6,8 +6,7 @@ class Book < ApplicationRecord
   attribute :new_image
 
   validates :title, presence: true, length: { maximum: 50 }
-  validates :reading_date, presence: true
-  validates :description, presence: true, length: { maximum: 140 }
+  validates :new_image, presence: true
 
   before_save do
     self.image = new_image if new_image

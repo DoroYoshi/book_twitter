@@ -1,18 +1,13 @@
 <div>
-  <div>
-    <% if review.user.avatar.attached? %>
-      <%= image_tag review.user.avatar.variant(resize: "60x60"), class: "img-thumbnail" %>
-    <% else %>
-      <%= image_tag "no_image.png", class: "img-thumbnail", width: 60 %>
-    <% end %>
-    <span><%= review.user.nick_name %></span>
-  </div>
-  <div>
+  <div> 
     <div>
-      <span class="text-warning"><%= "★" * review.evaluation %></span>
-      <b><%= link_to review.title, book_review_path(review.book, review) %></b>
+      <ul>
+        <li><b><%= t ".category" %>: </b><%= @book.category&.name %></li>
+        <li><b><%= t ".evaluation" %>: </b><span class="text-warning"><%= "★" * review.evaluation %></span></li>
+        <li><b><%= t ".created_at" %>: </b><%= review.created_at.strftime("%Y.%m.%d") %></li>
+        <li><b><%= t ".title" %>: </b><%= link_to review.title, book_review_path(review.book, review) %></li>
+      </ul>
     </div>
-    <small><%= review.created_at.strftime("%Y年%m月%d日") %></small>
   </div>
-  <%= simple_format review.body %>
+  <%= simple_format review.description %>
 </div>

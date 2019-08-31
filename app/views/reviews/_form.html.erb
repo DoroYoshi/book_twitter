@@ -5,12 +5,31 @@
     <%= form.text_field :title, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= form.label :evaluation %>
-    <%= form.select :evaluation, Review.evaluations.values, {}, class: "form-control" %>
+    <%= form.label :reading_date %>
+    <%= form.text_field :reading_date, class: "form-control" %>
   </div>
+
+  <div class="form-group" id="star">
+    <%= form.label :evaluation %><br>
+    <%= form.hidden_field :evaluation, class: "form-control", id: :review_star %>
+  </div>
+
+  <!-- 評価 hidden_field-->
+  <!-- 評価javascript -->
+  <script>
+  $('#star').raty({
+    size     : 60,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'review[evaluation]',
+    half: true,
+  });
+  </script>  
+
   <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, rows: 10, class: "form-control" %>
+    <%= form.text_area :description, rows: 8, class: "form-control" %>
   </div>
   <%= form.submit class: "btn btn-primary" %>
   <%= link_to t(".back"), :back, class: "btn btn-secondary" %>
