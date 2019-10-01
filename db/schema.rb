@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_24_020357) do
+ActiveRecord::Schema.define(version: 2019_09_02_052049) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 2019_08_24_020357) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_favorites_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_favorites_on_user_id_and_book_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.date "reading_date", null: false
@@ -76,6 +86,8 @@ ActiveRecord::Schema.define(version: 2019_08_24_020357) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "categories"
+  add_foreign_key "favorites", "books"
+  add_foreign_key "favorites", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
 end

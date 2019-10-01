@@ -12,13 +12,18 @@ ja:
       return: 戻る
       delete: 本棚から除く
       modal_title: 本を本棚から外す
-      question_book: "%{book}を外しますか？"
+      favorite_title: 本をお気に入りに登録する
+      question_book: "”%{book}”を外しますか？"
+      favorite_book: "”%{book}”を登録しますか？"
       delete_action: 外す
+      favorite_action: 登録
       cancel: キャンセル
       review_new: レビューする
       evaluation: 評価
       created_at: 読了日
       title: 要約
+      favorite: お気に入りに登録
+      favorite_out: お気に入り登録解除
     index:
       # price: 価格
       # price_yen: "¥%{price}"

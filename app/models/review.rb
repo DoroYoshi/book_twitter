@@ -13,4 +13,7 @@ class Review < ApplicationRecord
   validates :description, presence: true, length: { maximum: 140 }
   validates_uniqueness_of :book_id, scope: :user_id
 
+  has_many :favorites, foreign_key: 'review_id', dependent: :destroy
+  has_many :users, through: :favorites
+
 end

@@ -16,7 +16,7 @@
       <% else %>
         <%= render partial: "reviews/review", collection: @book.reviews %>
       <% end %>-->
-      <%= render partial: "reviews/review", collection: @book.reviews %>
+      <%= render partial: "reviews/review", collection: @book.review %>
     </div>
   </div>
   <%= link_to t(".edit"), edit_book_path(@book), class: "btn btn-primary" %>
@@ -24,12 +24,23 @@
   <% if user_signed_in? %>
     <%= link_to t(".review_new"), new_book_review_path(@book), class: "btn btn-info" %>
   <% end %>
-  
+
+  <% if current_user.favrev?(review) %>
+    <%= form_for(current_user.favorites.find_by(review_id: review.id), html: { method: :delete }) do |f| %>
+      <%= hidden_field_tag :review_id, review.id %>
+      <%= f.submit t(".favorite_out"), class: 'btn btn-danger' %>
+    <% end %>
+  <% else %>
+    <%= form_for(current_user.favorites.build) do |f| %>
+      <%= hidden_field_tag :review_id, review.id %>
+      <%= f.submit t(".favorite"), class: 'btn btn-success' %>
+  <% end %>
+  <% end %>
   <%= link_to t(".return"), books_path(@book), class: "btn btn-secondary" %>
   <hr>
   
 </div>
-
+<%# deleteのmodal %>
 <div class="modal fade" id="delete-book">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -45,6 +56,26 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(".cancel") %></button>
         <%= link_to t(".delete_action"), book_path(@book), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>
+<%# favoriteのmodal %>
+<div class="modal fade" id="favorite-book">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%= t(".favorite_title") %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><%= t(".favorite_book", book: @book.title) %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(".cancel") %></button>
+        <%= link_to t(".favorite_action"), book_path(@book), class: "btn btn-success" %>
       </div>
     </div>
   </div>

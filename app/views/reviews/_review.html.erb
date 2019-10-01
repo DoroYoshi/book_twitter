@@ -10,4 +10,7 @@
     </div>
   </div>
   <%= simple_format review.description %>
+  <div>
+    <%= render 'favorites/like_button', review: review %>
+  </div>
 </div>

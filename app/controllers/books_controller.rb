@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.with_attached_image.includes(reviews: :user).find(params[:id])
+    @book = Book.with_attached_image.includes(review: :user).find(params[:id])
   end
   
   def new
@@ -37,6 +37,11 @@ class BooksController < ApplicationController
     @book.destroy
     redirect_to books_path, notice: "本棚から外しました。"
   end
+
+  # def favorite
+  #   @book.favorite
+  #   redirect_to book_path, notice: "お気に入りに登録しました。"
+  # end
 
   private
 
