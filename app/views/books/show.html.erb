@@ -5,17 +5,7 @@
     </div>
     <div class="col-md-8">
       <h2><%= @book.title %></h2>
-      <!-- 
-      <% unless @reviews %>
-        <ul>
-          <li><b><%= t ".category" %>: </b></li>
-          <li><b><%= t ".evaluation" %>: </b></li>
-          <li><b><%= t ".created_at" %>: </b></li>
-          <li><b><%= t ".title" %>: </b></li>
-        </ul>
-      <% else %>
-        <%= render partial: "reviews/review", collection: @book.reviews %>
-      <% end %>-->
+      
       <%= render partial: "reviews/review", collection: @book.review %>
     </div>
   </div>
@@ -25,20 +15,21 @@
     <%= link_to t(".review_new"), new_book_review_path(@book), class: "btn btn-info" %>
   <% end %>
 
-  <% if current_user.favrev?(review) %>
-    <%= form_for(current_user.favorites.find_by(review_id: review.id), html: { method: :delete }) do |f| %>
-      <%= hidden_field_tag :review_id, review.id %>
-      <%= f.submit t(".favorite_out"), class: 'btn btn-danger' %>
+  <% @reviews.each do |review| %>
+    <% if current_user.favrev?(review) %>
+      <%= form_for(current_user.favorites.find_by(review_id: review.id), html: { method: :delete }) do |f| %>
+        <%= hidden_field_tag :review_id, review.id %>
+        <%= f.submit t(".favorite_out"), class: 'btn btn-danger' %>
+      <% end %>
+    <% else %>
+      <%= form_for(current_user.favorites.build) do |f| %>
+        <%= hidden_field_tag :review_id, review.id %>
+        <%= f.submit t(".favorite"), class: 'btn btn-success' %>
+      <% end %>
     <% end %>
-  <% else %>
-    <%= form_for(current_user.favorites.build) do |f| %>
-      <%= hidden_field_tag :review_id, review.id %>
-      <%= f.submit t(".favorite"), class: 'btn btn-success' %>
+    <%= link_to t(".return"), books_path(@book), class: "btn btn-secondary" %>
+    <hr>
   <% end %>
-  <% end %>
-  <%= link_to t(".return"), books_path(@book), class: "btn btn-secondary" %>
-  <hr>
-  
 </div>
 <%# deleteのmodal %>
 <div class="modal fade" id="delete-book">
